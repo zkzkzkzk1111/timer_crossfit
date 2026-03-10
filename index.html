@@ -1,13 +1,21 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CrossFit Timer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700&display=swap"
+    rel="stylesheet" />
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     :root {
       --bg: #0a0a0a;
@@ -21,14 +29,19 @@
       --rest-accent: #4db8ff;
     }
 
-    html, body {
+    html {
       height: 100%;
+    }
+
+    body {
+      min-height: 100%;
       background: var(--bg);
       font-family: 'Inter', sans-serif;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
-      overflow: hidden;
+      padding: clamp(16px, 3vw, 32px) 0;
+      overflow-y: auto;
     }
 
     /* ── Card ── */
@@ -37,11 +50,11 @@
       border: 1px solid var(--border);
       border-radius: 24px;
       padding: clamp(20px, 5vw, 40px);
-      width: min(480px, 98vw);
+      width: min(640px, 98vw);
       display: flex;
       flex-direction: column;
-      gap: clamp(16px, 4vw, 24px);
-      box-shadow: 0 20px 60px rgba(0,0,0,.6);
+      gap: clamp(16px, 4vw, 26px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, .6);
     }
 
     /* ── Header ── */
@@ -52,7 +65,8 @@
     }
 
     .dot {
-      width: 11px; height: 11px;
+      width: 11px;
+      height: 11px;
       border-radius: 50%;
       background: var(--accent);
       box-shadow: 0 0 8px var(--accent);
@@ -106,16 +120,40 @@
       transition: background 0.3s;
     }
 
-    .display-wrap.normal  { background: var(--accent); }
-    .display-wrap.danger  { background: var(--danger); animation: pulse 0.5s ease-in-out infinite alternate; }
-    .display-wrap.idle    { background: #1f1f1f; }
-    .display-wrap.done    { background: #222; }
-    .display-wrap.rest    { background: var(--rest-bg); }
-    .display-wrap.rest-danger { background: var(--danger); animation: pulse 0.5s ease-in-out infinite alternate; }
+    .display-wrap.normal {
+      background: var(--accent);
+    }
+
+    .display-wrap.danger {
+      background: var(--danger);
+      animation: pulse 0.5s ease-in-out infinite alternate;
+    }
+
+    .display-wrap.idle {
+      background: #1f1f1f;
+    }
+
+    .display-wrap.done {
+      background: #222;
+    }
+
+    .display-wrap.rest {
+      background: var(--rest-bg);
+    }
+
+    .display-wrap.rest-danger {
+      background: var(--danger);
+      animation: pulse 0.5s ease-in-out infinite alternate;
+    }
 
     @keyframes pulse {
-      from { box-shadow: 0 0 0 0 rgba(255,32,32,.5); }
-      to   { box-shadow: 0 0 0 16px rgba(255,32,32,0); }
+      from {
+        box-shadow: 0 0 0 0 rgba(255, 32, 32, .5);
+      }
+
+      to {
+        box-shadow: 0 0 0 16px rgba(255, 32, 32, 0);
+      }
     }
 
     .display {
@@ -129,18 +167,33 @@
       user-select: none;
     }
 
-    .display-wrap.normal  .display,
-    .display-wrap.danger  .display { color: #000; }
-    .display-wrap.idle    .display { color: #444; }
-    .display-wrap.done    .display { color: #555; }
-    .display-wrap.rest    .display { color: var(--rest-accent); }
-    .display-wrap.rest-danger .display { color: #000; }
+    .display-wrap.normal .display,
+    .display-wrap.danger .display {
+      color: #000;
+    }
+
+    .display-wrap.idle .display {
+      color: #444;
+    }
+
+    .display-wrap.done .display {
+      color: #555;
+    }
+
+    .display-wrap.rest .display {
+      color: var(--rest-accent);
+    }
+
+    .display-wrap.rest-danger .display {
+      color: #000;
+    }
 
     /* Phase label inside display */
     .phase-label {
       position: absolute;
       bottom: 10px;
-      left: 0; right: 0;
+      left: 0;
+      right: 0;
       text-align: center;
       font-size: clamp(12px, 3vw, 15px);
       font-weight: 700;
@@ -149,12 +202,23 @@
       opacity: .7;
     }
 
-    .display-wrap.normal  .phase-label,
-    .display-wrap.danger  .phase-label,
-    .display-wrap.rest-danger .phase-label { color: #000; }
-    .display-wrap.idle    .phase-label { color: #555; }
-    .display-wrap.done    .phase-label { color: #555; }
-    .display-wrap.rest    .phase-label { color: var(--rest-accent); }
+    .display-wrap.normal .phase-label,
+    .display-wrap.danger .phase-label,
+    .display-wrap.rest-danger .phase-label {
+      color: #000;
+    }
+
+    .display-wrap.idle .phase-label {
+      color: #555;
+    }
+
+    .display-wrap.done .phase-label {
+      color: #555;
+    }
+
+    .display-wrap.rest .phase-label {
+      color: var(--rest-accent);
+    }
 
     /* ── Round badge (round mode) ── */
     .round-badge {
@@ -164,7 +228,9 @@
       gap: 6px;
     }
 
-    .round-badge.show { display: flex; }
+    .round-badge.show {
+      display: flex;
+    }
 
     .round-num {
       font-family: 'Bebas Neue', sans-serif;
@@ -196,8 +262,13 @@
       transition: width 0.25s linear, background 0.3s;
     }
 
-    .progress-fill.danger { background: var(--danger); }
-    .progress-fill.rest   { background: var(--rest-accent); }
+    .progress-fill.danger {
+      background: var(--danger);
+    }
+
+    .progress-fill.rest {
+      background: var(--rest-accent);
+    }
 
     /* ── Done / Info message ── */
     .info-msg {
@@ -210,7 +281,9 @@
       color: var(--muted);
     }
 
-    .info-msg.show { display: block; }
+    .info-msg.show {
+      display: block;
+    }
 
     /* ── Input group (shared) ── */
     .input-row {
@@ -234,7 +307,9 @@
       transition: border-color .2s;
     }
 
-    .time-input:focus { border-color: var(--accent); }
+    .time-input:focus {
+      border-color: var(--accent);
+    }
 
     .time-sep {
       font-family: 'Bebas Neue', sans-serif;
@@ -300,7 +375,9 @@
       transition: border-color .2s;
     }
 
-    .round-input:focus { border-color: var(--accent); }
+    .round-input:focus {
+      border-color: var(--accent);
+    }
 
     .time-pair {
       display: flex;
@@ -349,15 +426,20 @@
       transition: opacity .15s, transform .1s, box-shadow .2s;
     }
 
-    .btn:active { transform: scale(.96); }
+    .btn:active {
+      transform: scale(.96);
+    }
 
     .btn-start {
       background: var(--accent);
       color: #000;
-      box-shadow: 0 4px 20px rgba(232,255,0,.25);
+      box-shadow: 0 4px 20px rgba(232, 255, 0, .25);
     }
 
-    .btn-start:hover { opacity: .88; box-shadow: 0 4px 26px rgba(232,255,0,.45); }
+    .btn-start:hover {
+      opacity: .88;
+      box-shadow: 0 4px 26px rgba(232, 255, 0, .45);
+    }
 
     .btn-stop {
       background: #1f1f1f;
@@ -365,7 +447,9 @@
       border: 1px solid var(--border);
     }
 
-    .btn-stop:hover { background: #2a2a2a; }
+    .btn-stop:hover {
+      background: #2a2a2a;
+    }
 
     .btn-reset {
       background: #1a1a1a;
@@ -376,486 +460,601 @@
       padding-right: 18px;
     }
 
-    .btn-reset:hover { color: #fff; border-color: #555; }
+    .btn-reset:hover {
+      color: #fff;
+      border-color: #555;
+    }
 
-    .btn:disabled { opacity: .35; cursor: not-allowed; pointer-events: none; }
+    .btn:disabled {
+      opacity: .35;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
 
     /* ── Hidden ── */
-    .hidden { display: none !important; }
+    .hidden {
+      display: none !important;
+    }
+
+    /* ── Focus Mode ── */
+    body.focus-mode {
+      background: #000;
+      padding: 0;
+      align-items: center;
+    }
+
+    body.focus-mode .card {
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      padding: 0;
+      width: 100vw;
+      gap: 0;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    body.focus-mode .focus-hide {
+      display: none !important;
+    }
+
+    body.focus-mode .display-wrap {
+      border-radius: 0;
+      width: 100vw;
+    }
+
+    body.focus-mode .display {
+      font-size: clamp(140px, 38vw, 260px);
+      padding: 40px 20px;
+    }
+
+    body.focus-mode .phase-label {
+      font-size: clamp(16px, 4vw, 24px);
+      bottom: 16px;
+    }
+
+    body.focus-mode .round-badge.show {
+      display: flex;
+      position: absolute;
+      top: 20px;
+      left: 0; right: 0;
+      justify-content: center;
+    }
+
+    body.focus-mode .round-num { font-size: clamp(36px, 10vw, 60px); }
+    body.focus-mode .round-of  { font-size: clamp(14px, 4vw, 20px); }
+
+    .btn-focus {
+      background: transparent;
+      border: 1px solid #333;
+      color: var(--muted);
+      border-radius: 8px;
+      font-size: 16px;
+      padding: 4px 10px;
+      cursor: pointer;
+      margin-left: auto;
+      transition: border-color .2s, color .2s;
+      line-height: 1;
+    }
+
+    .btn-focus:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* Exit focus button (shown only in focus mode) */
+    .exit-focus {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid #333;
+      color: #888;
+      border-radius: 10px;
+      font-size: 13px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      letter-spacing: .08em;
+      padding: 10px 16px;
+      cursor: pointer;
+      z-index: 999;
+      transition: background .2s, color .2s;
+    }
+
+    body.focus-mode .exit-focus { display: block; }
+    .exit-focus:hover { background: rgba(255,255,255,.15); color: #fff; }
   </style>
 </head>
+
 <body>
-<div class="card">
+  <div class="card">
 
-  <!-- Header -->
-  <div class="header">
-    <div class="dot" id="statusDot"></div>
-    <span class="title" id="statusText">CrossFit Timer</span>
-  </div>
-
-  <!-- Tabs -->
-  <div class="tabs">
-    <button class="tab-btn active" id="tabTimer">⏱ 타이머</button>
-    <button class="tab-btn" id="tabRound">🔁 라운드</button>
-  </div>
-
-  <!-- ── TIME DISPLAY (shared) ── -->
-  <div class="display-wrap idle" id="displayWrap">
-    <div class="display" id="display">00:00</div>
-    <div class="phase-label" id="phaseLabel"></div>
-  </div>
-
-  <!-- Round badge -->
-  <div class="round-badge" id="roundBadge">
-    <span class="round-num" id="roundCurrent">1</span>
-    <span class="round-of" id="roundOf">/ 5 라운드</span>
-  </div>
-
-  <!-- Progress -->
-  <div class="progress-track">
-    <div class="progress-fill" id="progressFill"></div>
-  </div>
-
-  <!-- Info / Done message -->
-  <div class="info-msg" id="infoMsg"></div>
-
-  <!-- ══════════════════════════════════════ -->
-  <!-- PANEL A: Simple Countdown -->
-  <!-- ══════════════════════════════════════ -->
-  <div id="panelTimer">
-    <div class="input-row">
-      <input class="time-input" id="tMin" type="number" min="0" max="99" value="3" />
-      <span class="time-sep">:</span>
-      <input class="time-input" id="tSec" type="number" min="0" max="59" value="0" />
-    </div>
-    <div class="label-row">
-      <span>분</span><span></span><span>초</span>
-    </div>
-  </div>
-
-  <!-- ══════════════════════════════════════ -->
-  <!-- PANEL B: Round Timer -->
-  <!-- ══════════════════════════════════════ -->
-  <div id="panelRound" class="round-inputs hidden">
-
-    <!-- Rounds -->
-    <div>
-      <div class="section-label">라운드 수</div>
-      <input class="round-input" id="rRounds" type="number" min="1" max="99" value="5" />
+    <!-- Header -->
+    <div class="header focus-hide">
+      <div class="dot" id="statusDot"></div>
+      <span class="title" id="statusText">CrossFit Timer</span>
+      <button class="btn-focus" id="btnFocus" title="간소화 모드">⛶</button>
     </div>
 
-    <!-- Work time -->
-    <div>
-      <div class="section-label">🏋️ 운동 시간</div>
-      <div class="time-pair">
-        <input class="round-input" id="rWorkMin" type="number" min="0" max="99" value="3" />
-        <span class="pair-sep">:</span>
-        <input class="round-input" id="rWorkSec" type="number" min="0" max="59" value="0" />
+    <!-- Tabs -->
+    <div class="tabs focus-hide">
+      <button class="tab-btn active" id="tabTimer">⏱ 타이머</button>
+      <button class="tab-btn" id="tabRound">🔁 라운드</button>
+    </div>
+
+    <!-- ── TIME DISPLAY (shared) ── -->
+    <div class="display-wrap idle" id="displayWrap">
+      <div class="display" id="display">00:00</div>
+      <div class="phase-label" id="phaseLabel"></div>
+    </div>
+
+    <!-- Round badge -->
+    <div class="round-badge" id="roundBadge">
+      <span class="round-num" id="roundCurrent">1</span>
+      <span class="round-of" id="roundOf">/ 5 라운드</span>
+    </div>
+
+    <!-- Progress -->
+    <div class="progress-track focus-hide">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <!-- Info / Done message -->
+    <div class="info-msg focus-hide" id="infoMsg"></div>
+
+    <!-- ══════════════════════════════════════ -->
+    <!-- PANEL A: Simple Countdown -->
+    <!-- ══════════════════════════════════════ -->
+    <div id="panelTimer" class="focus-hide">
+      <div class="input-row">
+        <input class="time-input" id="tMin" type="number" min="0" max="99" value="3" />
+        <span class="time-sep">:</span>
+        <input class="time-input" id="tSec" type="number" min="0" max="59" value="0" />
       </div>
-      <div class="label-row" style="margin-top:4px">
+      <div class="label-row">
         <span>분</span><span></span><span>초</span>
       </div>
     </div>
 
-    <!-- Rest time -->
-    <div>
-      <div class="section-label">😮‍💨 쉬는 시간</div>
-      <div class="time-pair">
-        <input class="round-input" id="rRestMin" type="number" min="0" max="99" value="1" />
-        <span class="pair-sep">:</span>
-        <input class="round-input" id="rRestSec" type="number" min="0" max="59" value="0" />
+    <!-- ══════════════════════════════════════ -->
+    <!-- PANEL B: Round Timer -->
+    <!-- ══════════════════════════════════════ -->
+    <div id="panelRound" class="round-inputs hidden focus-hide">
+
+      <!-- Rounds -->
+      <div>
+        <div class="section-label">라운드 수</div>
+        <input class="round-input" id="rRounds" type="number" min="1" max="99" value="5" />
       </div>
-      <div class="label-row" style="margin-top:4px">
-        <span>분</span><span></span><span>초</span>
+
+      <!-- Work time -->
+      <div>
+        <div class="section-label">🏋️ 운동 시간</div>
+        <div class="time-pair">
+          <input class="round-input" id="rWorkMin" type="number" min="0" max="99" value="0" />
+          <span class="pair-sep">:</span>
+          <input class="round-input" id="rWorkSec" type="number" min="0" max="59" value="0" />
+        </div>
+        <div class="label-row" style="margin-top:4px">
+          <span>분</span><span></span><span>초</span>
+        </div>
       </div>
+
+      <!-- Rest time -->
+      <div>
+        <div class="section-label">😮‍💨 쉬는 시간</div>
+        <div class="time-pair">
+          <input class="round-input" id="rRestMin" type="number" min="0" max="99" value="0" />
+          <span class="pair-sep">:</span>
+          <input class="round-input" id="rRestSec" type="number" min="0" max="59" value="0" />
+        </div>
+        <div class="label-row" style="margin-top:4px">
+          <span>분</span><span></span><span>초</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Buttons -->
+    <div class="btn-row focus-hide">
+      <button class="btn btn-start" id="btnStart">▶ 시작</button>
+      <button class="btn btn-stop" id="btnStop" disabled>⏸ 중지</button>
+      <button class="btn btn-reset" id="btnReset">↺</button>
     </div>
 
   </div>
 
-  <!-- Buttons -->
-  <div class="btn-row">
-    <button class="btn btn-start" id="btnStart">▶ 시작</button>
-    <button class="btn btn-stop"  id="btnStop" disabled>⏸ 중지</button>
-    <button class="btn btn-reset" id="btnReset">↺</button>
-  </div>
+  <button class="exit-focus" id="btnExitFocus">✕ 나가기</button>
 
-</div>
+  <script>
+    /* ─────────────────────────────────────────
+       DOM refs
+    ───────────────────────────────────────── */
+    const displayEl = document.getElementById('display');
+    const displayWrap = document.getElementById('displayWrap');
+    const phaseLabel = document.getElementById('phaseLabel');
+    const progressFill = document.getElementById('progressFill');
+    const roundBadge = document.getElementById('roundBadge');
+    const roundCurrent = document.getElementById('roundCurrent');
+    const roundOf = document.getElementById('roundOf');
+    const infoMsg = document.getElementById('infoMsg');
+    const statusDot = document.getElementById('statusDot');
+    const statusText = document.getElementById('statusText');
+    const btnStart = document.getElementById('btnStart');
+    const btnStop = document.getElementById('btnStop');
+    const btnReset = document.getElementById('btnReset');
+    const tabTimer = document.getElementById('tabTimer');
+    const tabRound = document.getElementById('tabRound');
+    const panelTimer = document.getElementById('panelTimer');
+    const panelRound = document.getElementById('panelRound');
 
-<script>
-  /* ─────────────────────────────────────────
-     DOM refs
-  ───────────────────────────────────────── */
-  const displayEl    = document.getElementById('display');
-  const displayWrap  = document.getElementById('displayWrap');
-  const phaseLabel   = document.getElementById('phaseLabel');
-  const progressFill = document.getElementById('progressFill');
-  const roundBadge   = document.getElementById('roundBadge');
-  const roundCurrent = document.getElementById('roundCurrent');
-  const roundOf      = document.getElementById('roundOf');
-  const infoMsg      = document.getElementById('infoMsg');
-  const statusDot    = document.getElementById('statusDot');
-  const statusText   = document.getElementById('statusText');
-  const btnStart     = document.getElementById('btnStart');
-  const btnStop      = document.getElementById('btnStop');
-  const btnReset     = document.getElementById('btnReset');
-  const tabTimer     = document.getElementById('tabTimer');
-  const tabRound     = document.getElementById('tabRound');
-  const panelTimer   = document.getElementById('panelTimer');
-  const panelRound   = document.getElementById('panelRound');
+    // Simple timer inputs
+    const tMin = document.getElementById('tMin');
+    const tSec = document.getElementById('tSec');
 
-  // Simple timer inputs
-  const tMin = document.getElementById('tMin');
-  const tSec = document.getElementById('tSec');
+    // Round inputs
+    const rRounds = document.getElementById('rRounds');
+    const rWorkMin = document.getElementById('rWorkMin');
+    const rWorkSec = document.getElementById('rWorkSec');
+    const rRestMin = document.getElementById('rRestMin');
+    const rRestSec = document.getElementById('rRestSec');
 
-  // Round inputs
-  const rRounds  = document.getElementById('rRounds');
-  const rWorkMin = document.getElementById('rWorkMin');
-  const rWorkSec = document.getElementById('rWorkSec');
-  const rRestMin = document.getElementById('rRestMin');
-  const rRestSec = document.getElementById('rRestSec');
+    /* ─────────────────────────────────────────
+       State
+    ───────────────────────────────────────── */
+    let mode = 'timer'; // 'timer' | 'round'
+    let interval = null;
+    let running = false;
 
-  /* ─────────────────────────────────────────
-     State
-  ───────────────────────────────────────── */
-  let mode      = 'timer'; // 'timer' | 'round'
-  let interval  = null;
-  let running   = false;
+    // Simple timer state
+    let tTotal = 0;
+    let tRemaining = 0;
 
-  // Simple timer state
-  let tTotal     = 0;
-  let tRemaining = 0;
+    // Round timer state
+    let rTotal = 0; // total rounds
+    let rCurrent = 1; // current round (1-indexed)
+    let rWorkTotal = 0;
+    let rRestTotal = 0;
+    let rPhase = 'work'; // 'work' | 'rest'
+    let rElapsed = 0; // for count-up (work phase)
+    let rRemaining = 0; // for count-down (rest phase)
 
-  // Round timer state
-  let rTotal      = 0; // total rounds
-  let rCurrent    = 1; // current round (1-indexed)
-  let rWorkTotal  = 0;
-  let rRestTotal  = 0;
-  let rPhase      = 'work'; // 'work' | 'rest'
-  let rElapsed    = 0; // for count-up (work phase)
-  let rRemaining  = 0; // for count-down (rest phase)
+    /* ─────────────────────────────────────────
+       Helpers
+    ───────────────────────────────────────── */
+    const pad = n => String(n).padStart(2, '0');
+    const fmt = s => `${pad(Math.floor(s / 60))}:${pad(s % 60)}`;
 
-  /* ─────────────────────────────────────────
-     Helpers
-  ───────────────────────────────────────── */
-  const pad = n => String(n).padStart(2, '0');
-  const fmt = s => `${pad(Math.floor(s / 60))}:${pad(s % 60)}`;
+    function getInt(el, fallback = 0) {
+      return Math.max(0, parseInt(el.value) || fallback);
+    }
 
-  function getInt(el, fallback = 0) {
-    return Math.max(0, parseInt(el.value) || fallback);
-  }
+    function setDisplay(text, stateClass) {
+      displayEl.textContent = text;
+      displayWrap.className = `display-wrap ${stateClass}`;
+    }
 
-  function setDisplay(text, stateClass) {
-    displayEl.textContent = text;
-    displayWrap.className = `display-wrap ${stateClass}`;
-  }
+    function setProgress(filled, stateClass) {
+      progressFill.style.width = filled + '%';
+      progressFill.className = `progress-fill ${stateClass}`;
+    }
 
-  function setProgress(filled, stateClass) {
-    progressFill.style.width = filled + '%';
-    progressFill.className = `progress-fill ${stateClass}`;
-  }
+    function showDot(color, glow) {
+      statusDot.style.background = color;
+      statusDot.style.boxShadow = glow ? `0 0 8px ${color}` : 'none';
+    }
 
-  function showDot(color, glow) {
-    statusDot.style.background = color;
-    statusDot.style.boxShadow  = glow ? `0 0 8px ${color}` : 'none';
-  }
+    function showInfo(msg) {
+      infoMsg.textContent = msg;
+      infoMsg.classList.toggle('show', !!msg);
+    }
 
-  function showInfo(msg) {
-    infoMsg.textContent = msg;
-    infoMsg.classList.toggle('show', !!msg);
-  }
+    function resetUI() {
+      clearInterval(interval);
+      interval = null;
+      running = false;
+      btnStart.textContent = '▶ 시작';
+      btnStart.disabled = false;
+      btnStop.disabled = true;
+      statusText.textContent = 'CrossFit Timer';
+      showDot('#e8ff00', true);
+      showInfo('');
+      roundBadge.classList.remove('show');
+      phaseLabel.textContent = '';
+    }
 
-  function resetUI() {
-    clearInterval(interval);
-    interval = null;
-    running  = false;
-    btnStart.textContent = '▶ 시작';
-    btnStart.disabled = false;
-    btnStop.disabled  = true;
-    statusText.textContent = 'CrossFit Timer';
-    showDot('#e8ff00', true);
-    showInfo('');
-    roundBadge.classList.remove('show');
-    phaseLabel.textContent = '';
-  }
+    /* ─────────────────────────────────────────
+       Tab switching
+    ───────────────────────────────────────── */
+    function switchTab(to) {
+      if (running) hardReset();
+      mode = to;
+      tabTimer.classList.toggle('active', to === 'timer');
+      tabRound.classList.toggle('active', to === 'round');
+      panelTimer.classList.toggle('hidden', to !== 'timer');
+      panelRound.classList.toggle('hidden', to !== 'round');
+      resetUI();
+      setDisplay('00:00', 'idle');
+      setProgress(100, '');
+    }
 
-  /* ─────────────────────────────────────────
-     Tab switching
-  ───────────────────────────────────────── */
-  function switchTab(to) {
-    if (running) hardReset();
-    mode = to;
-    tabTimer.classList.toggle('active', to === 'timer');
-    tabRound.classList.toggle('active', to === 'round');
-    panelTimer.classList.toggle('hidden', to !== 'timer');
-    panelRound.classList.toggle('hidden', to !== 'round');
-    resetUI();
-    setDisplay('00:00', 'idle');
-    setProgress(100, '');
-  }
+    tabTimer.addEventListener('click', () => switchTab('timer'));
+    tabRound.addEventListener('click', () => switchTab('round'));
 
-  tabTimer.addEventListener('click', () => switchTab('timer'));
-  tabRound.addEventListener('click', () => switchTab('round'));
+    /* ─────────────────────────────────────────
+       ── SIMPLE TIMER ──
+    ───────────────────────────────────────── */
+    function timerTick() {
+      if (tRemaining <= 0) {
+        clearInterval(interval);
+        running = false;
+        setDisplay('00:00', 'done');
+        setProgress(0, '');
+        showInfo('🔥 완료! 잘하셨습니다!');
+        statusText.textContent = '완료';
+        showDot('#fff', false);
+        btnStart.disabled = false;
+        btnStop.disabled = true;
+        return;
+      }
+      tRemaining--;
+      const state = tRemaining <= 3 ? 'danger' : 'normal';
+      setDisplay(fmt(tRemaining), state);
+      setProgress((tRemaining / tTotal) * 100, tRemaining <= 3 ? 'danger' : '');
+    }
 
-  /* ─────────────────────────────────────────
-     ── SIMPLE TIMER ──
-  ───────────────────────────────────────── */
-  function timerTick() {
-    if (tRemaining <= 0) {
+    function startTimer() {
+      if (tRemaining === 0) {
+        const secs = getInt(tMin) * 60 + Math.min(59, getInt(tSec));
+        if (secs <= 0) return;
+        tTotal = secs;
+        tRemaining = secs;
+      }
+      running = true;
+      showInfo('');
+      const state = tRemaining <= 3 ? 'danger' : 'normal';
+      setDisplay(fmt(tRemaining), state);
+      setProgress((tRemaining / tTotal) * 100, tRemaining <= 3 ? 'danger' : '');
+      statusText.textContent = '진행 중';
+      showDot('#e8ff00', true);
+      btnStart.disabled = true;
+      btnStop.disabled = false;
+      interval = setInterval(timerTick, 1000);
+    }
+
+    function stopTimer() {
       clearInterval(interval);
       running = false;
-      setDisplay('00:00', 'done');
-      setProgress(0, '');
-      showInfo('🔥 완료! 잘하셨습니다!');
-      statusText.textContent = '완료';
-      showDot('#fff', false);
+      setDisplay(fmt(tRemaining), 'idle');
+      statusText.textContent = '일시정지';
+      showDot('#888', false);
+      btnStart.textContent = '▶ 재개';
       btnStart.disabled = false;
-      btnStop.disabled  = true;
-      return;
+      btnStop.disabled = true;
     }
-    tRemaining--;
-    const state = tRemaining <= 3 ? 'danger' : 'normal';
-    setDisplay(fmt(tRemaining), state);
-    setProgress((tRemaining / tTotal) * 100, tRemaining <= 3 ? 'danger' : '');
-  }
 
-  function startTimer() {
-    if (tRemaining === 0) {
-      const secs = getInt(tMin) * 60 + Math.min(59, getInt(tSec));
-      if (secs <= 0) return;
-      tTotal = secs;
-      tRemaining = secs;
+    function resetTimer() {
+      tTotal = 0;
+      tRemaining = 0;
+      setDisplay('00:00', 'idle');
+      setProgress(100, '');
+      resetUI();
     }
-    running = true;
-    showInfo('');
-    const state = tRemaining <= 3 ? 'danger' : 'normal';
-    setDisplay(fmt(tRemaining), state);
-    setProgress((tRemaining / tTotal) * 100, tRemaining <= 3 ? 'danger' : '');
-    statusText.textContent = '진행 중';
-    showDot('#e8ff00', true);
-    btnStart.disabled = true;
-    btnStop.disabled  = false;
-    interval = setInterval(timerTick, 1000);
-  }
 
-  function stopTimer() {
-    clearInterval(interval);
-    running = false;
-    setDisplay(fmt(tRemaining), 'idle');
-    statusText.textContent = '일시정지';
-    showDot('#888', false);
-    btnStart.textContent = '▶ 재개';
-    btnStart.disabled = false;
-    btnStop.disabled  = true;
-  }
-
-  function resetTimer() {
-    tTotal = 0;
-    tRemaining = 0;
-    setDisplay('00:00', 'idle');
-    setProgress(100, '');
-    resetUI();
-  }
-
-  /* ─────────────────────────────────────────
-     ── ROUND TIMER ──
-     Work phase: COUNT UP  (0 → workTotal)
-     Rest  phase: COUNT DOWN (restTotal → 0)
-  ───────────────────────────────────────── */
-  function updateRoundBadge() {
-    roundBadge.classList.add('show');
-    roundCurrent.textContent = rCurrent;
-    roundOf.textContent = `/ ${rTotal} 라운드`;
-  }
-
-  function startWorkPhase() {
-    rPhase   = 'work';
-    rElapsed = 0;
-    phaseLabel.textContent = '운동';
-    setDisplay(fmt(0), 'idle'); // starts at 0 and counts up
-    setProgress(0, '');
-    updateRoundBadge();
-    statusText.textContent = `라운드 ${rCurrent} · 운동`;
-    showDot('#e8ff00', true);
-  }
-
-  function startRestPhase() {
-    rPhase     = 'rest';
-    rRemaining = rRestTotal;
-    phaseLabel.textContent = '휴식';
-    const state = rRemaining <= 3 ? 'rest-danger' : 'rest';
-    setDisplay(fmt(rRemaining), state);
-    setProgress(100, 'rest');
-    statusText.textContent = `라운드 ${rCurrent} · 휴식`;
-    showDot('#4db8ff', true);
-  }
-
-  function roundTick() {
-    if (rPhase === 'work') {
-      rElapsed++;
-      if (rElapsed >= rWorkTotal) {
-        // Work phase done
-        setDisplay(fmt(rElapsed), 'normal');
-        setProgress(100, '');
-        // Move to rest or finish
-        if (rRestTotal > 0 && rCurrent < rTotal) {
-          startRestPhase();
-        } else if (rCurrent >= rTotal) {
-          // All rounds done
-          clearInterval(interval);
-          running = false;
-          setDisplay(fmt(rWorkTotal), 'done');
-          phaseLabel.textContent = '';
-          showInfo(`🏆 ${rTotal} 라운드 완료!`);
-          statusText.textContent = '전체 완료!';
-          showDot('#fff', false);
-          btnStart.disabled = false;
-          btnStop.disabled  = true;
-        } else {
-          // No rest time → start next round
-          rCurrent++;
-          updateRoundBadge();
-          startWorkPhase();
-        }
-        return;
-      }
-      setDisplay(fmt(rElapsed), 'normal');
-      setProgress((rElapsed / rWorkTotal) * 100, '');
-    } else {
-      // rest phase: count down
-      rRemaining--;
-      if (rRemaining <= 0) {
-        // Rest done → next round
-        rCurrent++;
-        if (rCurrent > rTotal) {
-          clearInterval(interval);
-          running = false;
-          setDisplay('00:00', 'done');
-          phaseLabel.textContent = '';
-          showInfo(`🏆 ${rTotal} 라운드 완료!`);
-          statusText.textContent = '전체 완료!';
-          showDot('#fff', false);
-          btnStart.disabled = false;
-          btnStop.disabled  = true;
-          return;
-        }
-        updateRoundBadge();
-        startWorkPhase();
-        return;
-      }
-      const state = rRemaining <= 3 ? 'rest-danger' : 'rest';
-      setDisplay(fmt(rRemaining), state);
-      setProgress((rRemaining / rRestTotal) * 100, rRemaining <= 3 ? 'danger' : 'rest');
+    /* ─────────────────────────────────────────
+       ── ROUND TIMER ──
+       Work phase: COUNT UP  (0 → workTotal)
+       Rest  phase: COUNT DOWN (restTotal → 0)
+    ───────────────────────────────────────── */
+    function updateRoundBadge() {
+      roundBadge.classList.add('show');
+      roundCurrent.textContent = rCurrent;
+      roundOf.textContent = `/ ${rTotal} 라운드`;
     }
-  }
 
-  function startRound() {
-    const rounds  = Math.max(1, getInt(rRounds, 1));
-    const workSec = getInt(rWorkMin) * 60 + Math.min(59, getInt(rWorkSec));
-    const restSec = getInt(rRestMin) * 60 + Math.min(59, getInt(rRestSec));
-    if (workSec <= 0) return;
-
-    rTotal     = rounds;
-    rWorkTotal = workSec;
-    rRestTotal = restSec;
-    rCurrent   = 1;
-
-    running = true;
-    showInfo('');
-    startWorkPhase();
-    btnStart.disabled = true;
-    btnStop.disabled  = false;
-    interval = setInterval(roundTick, 1000);
-  }
-
-  function resumeRound() {
-    running = true;
-    showInfo('');
-    btnStart.textContent = '▶ 시작';
-    btnStart.disabled = true;
-    btnStop.disabled  = false;
-    if (rPhase === 'work') {
+    function startWorkPhase() {
+      rPhase = 'work';
+      rElapsed = 0;
+      phaseLabel.textContent = '운동';
+      setDisplay(fmt(0), 'idle'); // starts at 0 and counts up
+      setProgress(0, '');
+      updateRoundBadge();
       statusText.textContent = `라운드 ${rCurrent} · 운동`;
       showDot('#e8ff00', true);
-    } else {
+    }
+
+    function startRestPhase() {
+      rPhase = 'rest';
+      rRemaining = rRestTotal;
+      phaseLabel.textContent = '휴식';
+      const state = rRemaining <= 3 ? 'rest-danger' : 'rest';
+      setDisplay(fmt(rRemaining), state);
+      setProgress(100, 'rest');
       statusText.textContent = `라운드 ${rCurrent} · 휴식`;
       showDot('#4db8ff', true);
     }
-    interval = setInterval(roundTick, 1000);
-  }
 
-  function stopRound() {
-    clearInterval(interval);
-    running = false;
-    const curState = rPhase === 'work' ? 'idle' : 'rest';
-    const curTime  = rPhase === 'work' ? fmt(rElapsed) : fmt(rRemaining);
-    setDisplay(curTime, 'idle');
-    statusText.textContent = '일시정지';
-    showDot('#888', false);
-    btnStart.textContent = '▶ 재개';
-    btnStart.disabled = false;
-    btnStop.disabled  = true;
-  }
-
-  function resetRound() {
-    rTotal = rCurrent = 0;
-    rElapsed = rRemaining = 0;
-    rPhase = 'work';
-    setDisplay('00:00', 'idle');
-    setProgress(100, '');
-    roundBadge.classList.remove('show');
-    phaseLabel.textContent = '';
-    resetUI();
-  }
-
-  /* ─────────────────────────────────────────
-     Shared button handlers
-  ───────────────────────────────────────── */
-  let roundStarted = false; // track if round has been freshly started
-
-  btnStart.addEventListener('click', () => {
-    if (mode === 'timer') {
-      startTimer();
-    } else {
-      // If paused mid-round, resume; otherwise fresh start
-      if (!running && rTotal > 0 && (rElapsed > 0 || rRemaining > 0)) {
-        resumeRound();
+    function roundTick() {
+      if (rPhase === 'work') {
+        rElapsed++;
+        if (rElapsed >= rWorkTotal) {
+          // Work phase done
+          setDisplay(fmt(rElapsed), 'normal');
+          setProgress(100, '');
+          // Move to rest or finish
+          if (rRestTotal > 0 && rCurrent < rTotal) {
+            startRestPhase();
+          } else if (rCurrent >= rTotal) {
+            // All rounds done
+            clearInterval(interval);
+            running = false;
+            setDisplay(fmt(rWorkTotal), 'done');
+            phaseLabel.textContent = '';
+            showInfo(`🏆 ${rTotal} 라운드 완료!`);
+            statusText.textContent = '전체 완료!';
+            showDot('#fff', false);
+            btnStart.disabled = false;
+            btnStop.disabled = true;
+          } else {
+            // No rest time → start next round
+            rCurrent++;
+            updateRoundBadge();
+            startWorkPhase();
+          }
+          return;
+        }
+        setDisplay(fmt(rElapsed), 'normal');
+        setProgress((rElapsed / rWorkTotal) * 100, '');
       } else {
-        startRound();
+        // rest phase: count down
+        rRemaining--;
+        if (rRemaining <= 0) {
+          // Rest done → next round
+          rCurrent++;
+          if (rCurrent > rTotal) {
+            clearInterval(interval);
+            running = false;
+            setDisplay('00:00', 'done');
+            phaseLabel.textContent = '';
+            showInfo(`🏆 ${rTotal} 라운드 완료!`);
+            statusText.textContent = '전체 완료!';
+            showDot('#fff', false);
+            btnStart.disabled = false;
+            btnStop.disabled = true;
+            return;
+          }
+          updateRoundBadge();
+          startWorkPhase();
+          return;
+        }
+        const state = rRemaining <= 3 ? 'rest-danger' : 'rest';
+        setDisplay(fmt(rRemaining), state);
+        setProgress((rRemaining / rRestTotal) * 100, rRemaining <= 3 ? 'danger' : 'rest');
       }
     }
-  });
 
-  btnStop.addEventListener('click', () => {
-    if (!running) return;
-    if (mode === 'timer') stopTimer();
-    else stopRound();
-  });
+    function startRound() {
+      const rounds = Math.max(1, getInt(rRounds, 1));
+      const workSec = getInt(rWorkMin) * 60 + Math.min(59, getInt(rWorkSec));
+      const restSec = getInt(rRestMin) * 60 + Math.min(59, getInt(rRestSec));
+      if (workSec <= 0) return;
 
-  function hardReset() {
-    if (mode === 'timer') resetTimer();
-    else resetRound();
-  }
+      rTotal = rounds;
+      rWorkTotal = workSec;
+      rRestTotal = restSec;
+      rCurrent = 1;
 
-  btnReset.addEventListener('click', hardReset);
+      running = true;
+      showInfo('');
+      startWorkPhase();
+      btnStart.disabled = true;
+      btnStop.disabled = false;
+      interval = setInterval(roundTick, 1000);
+    }
 
-  // Reset state when inputs change
-  [tMin, tSec].forEach(el => el.addEventListener('change', () => {
-    if (mode !== 'timer') return;
-    tTotal = 0; tRemaining = 0;
+    function resumeRound() {
+      running = true;
+      showInfo('');
+      btnStart.textContent = '▶ 시작';
+      btnStart.disabled = true;
+      btnStop.disabled = false;
+      if (rPhase === 'work') {
+        statusText.textContent = `라운드 ${rCurrent} · 운동`;
+        showDot('#e8ff00', true);
+      } else {
+        statusText.textContent = `라운드 ${rCurrent} · 휴식`;
+        showDot('#4db8ff', true);
+      }
+      interval = setInterval(roundTick, 1000);
+    }
+
+    function stopRound() {
+      clearInterval(interval);
+      running = false;
+      const curState = rPhase === 'work' ? 'idle' : 'rest';
+      const curTime = rPhase === 'work' ? fmt(rElapsed) : fmt(rRemaining);
+      setDisplay(curTime, 'idle');
+      statusText.textContent = '일시정지';
+      showDot('#888', false);
+      btnStart.textContent = '▶ 재개';
+      btnStart.disabled = false;
+      btnStop.disabled = true;
+    }
+
+    function resetRound() {
+      rTotal = rCurrent = 0;
+      rElapsed = rRemaining = 0;
+      rPhase = 'work';
+      setDisplay('00:00', 'idle');
+      setProgress(100, '');
+      roundBadge.classList.remove('show');
+      phaseLabel.textContent = '';
+      resetUI();
+    }
+
+    /* ─────────────────────────────────────────
+       Shared button handlers
+    ───────────────────────────────────────── */
+    let roundStarted = false; // track if round has been freshly started
+
+    btnStart.addEventListener('click', () => {
+      if (mode === 'timer') {
+        startTimer();
+      } else {
+        // If paused mid-round, resume; otherwise fresh start
+        if (!running && rTotal > 0 && (rElapsed > 0 || rRemaining > 0)) {
+          resumeRound();
+        } else {
+          startRound();
+        }
+      }
+    });
+
+    btnStop.addEventListener('click', () => {
+      if (!running) return;
+      if (mode === 'timer') stopTimer();
+      else stopRound();
+    });
+
+    function hardReset() {
+      if (mode === 'timer') resetTimer();
+      else resetRound();
+    }
+
+    btnReset.addEventListener('click', hardReset);
+
+    // Reset state when inputs change
+    [tMin, tSec].forEach(el => el.addEventListener('change', () => {
+      if (mode !== 'timer') return;
+      tTotal = 0; tRemaining = 0;
+      setDisplay('00:00', 'idle');
+      setProgress(100, '');
+    }));
+
+    [rRounds, rWorkMin, rWorkSec, rRestMin, rRestSec].forEach(el =>
+      el.addEventListener('change', () => {
+        if (mode !== 'round') return;
+        resetRound();
+      })
+    );
+
+    /* ─────────────────────────────────────────
+       Focus (간소화) mode
+    ───────────────────────────────────────── */
+    const btnFocus = document.getElementById('btnFocus');
+    const btnExitFocus = document.getElementById('btnExitFocus');
+
+    btnFocus.addEventListener('click', () => {
+      document.body.classList.add('focus-mode');
+    });
+
+    btnExitFocus.addEventListener('click', () => {
+      document.body.classList.remove('focus-mode');
+    });
+
+    // Init
     setDisplay('00:00', 'idle');
-    setProgress(100, '');
-  }));
-
-  [rRounds, rWorkMin, rWorkSec, rRestMin, rRestSec].forEach(el =>
-    el.addEventListener('change', () => {
-      if (mode !== 'round') return;
-      resetRound();
-    })
-  );
-
-  // Init
-  setDisplay('00:00', 'idle');
-  showDot('#e8ff00', true);
-</script>
+    showDot('#e8ff00', true);
+  </script>
 </body>
+
 </html>
