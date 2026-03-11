@@ -15,6 +15,7 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      min-width: 0;
     }
 
     :root {
@@ -40,7 +41,7 @@
       display: flex;
       align-items: flex-start;
       justify-content: center;
-      padding: clamp(16px, 3vw, 32px) 0;
+      padding: clamp(8px, 3vw, 32px) 0;
       overflow-y: auto;
     }
 
@@ -48,12 +49,12 @@
     .card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 24px;
-      padding: clamp(20px, 5vw, 40px);
+      border-radius: clamp(12px, 4vw, 24px);
+      padding: clamp(12px, 4vw, 40px);
       width: min(640px, 98vw);
       display: flex;
       flex-direction: column;
-      gap: clamp(16px, 4vw, 26px);
+      gap: clamp(8px, 3vw, 26px);
       box-shadow: 0 20px 60px rgba(0, 0, 0, .6);
     }
 
@@ -74,7 +75,7 @@
     }
 
     .title {
-      font-size: clamp(13px, 3vw, 17px);
+      font-size: clamp(11px, 3vw, 17px);
       font-weight: 700;
       letter-spacing: .15em;
       color: var(--accent);
@@ -97,11 +98,11 @@
       background: transparent;
       color: var(--muted);
       font-family: 'Inter', sans-serif;
-      font-size: clamp(12px, 3vw, 14px);
+      font-size: clamp(10px, 3vw, 14px);
       font-weight: 700;
       letter-spacing: .08em;
       text-transform: uppercase;
-      padding: 9px 4px;
+      padding: clamp(6px, 2vw, 9px) 4px;
       border-radius: 9px;
       cursor: pointer;
       transition: background .2s, color .2s;
@@ -146,6 +147,18 @@
       animation: pulse 0.5s ease-in-out infinite alternate;
     }
 
+    .display-wrap.ready {
+      background: #1a1a2e;
+    }
+
+    .display-wrap.ready .display {
+      color: #fff;
+    }
+
+    .display-wrap.ready .phase-label {
+      color: #888;
+    }
+
     @keyframes pulse {
       from {
         box-shadow: 0 0 0 0 rgba(255, 32, 32, .5);
@@ -158,10 +171,10 @@
 
     .display {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(110px, 30vw, 180px);
+      font-size: clamp(56px, 22vw, 180px);
       line-height: 1;
       text-align: center;
-      padding: clamp(20px, 5vw, 40px) clamp(14px, 4vw, 24px);
+      padding: clamp(12px, 4vw, 40px) clamp(8px, 3vw, 24px);
       letter-spacing: .02em;
       transition: color 0.3s;
       user-select: none;
@@ -191,11 +204,11 @@
     /* Phase label inside display */
     .phase-label {
       position: absolute;
-      bottom: 10px;
+      bottom: clamp(6px, 2vw, 10px);
       left: 0;
       right: 0;
       text-align: center;
-      font-size: clamp(12px, 3vw, 15px);
+      font-size: clamp(10px, 2.5vw, 15px);
       font-weight: 700;
       letter-spacing: .15em;
       text-transform: uppercase;
@@ -234,13 +247,13 @@
 
     .round-num {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(32px, 9vw, 52px);
+      font-size: clamp(20px, 7vw, 52px);
       color: var(--accent);
       line-height: 1;
     }
 
     .round-of {
-      font-size: clamp(12px, 3vw, 15px);
+      font-size: clamp(10px, 2.5vw, 15px);
       font-weight: 700;
       color: var(--muted);
       letter-spacing: .08em;
@@ -275,7 +288,7 @@
       display: none;
       text-align: center;
       font-weight: 700;
-      font-size: clamp(14px, 4vw, 18px);
+      font-size: clamp(11px, 3.5vw, 18px);
       letter-spacing: .1em;
       text-transform: uppercase;
       color: var(--muted);
@@ -296,12 +309,12 @@
       flex: 1;
       background: #1a1a1a;
       border: 1px solid var(--border);
-      border-radius: 12px;
+      border-radius: clamp(8px, 2.5vw, 12px);
       color: #fff;
       font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(36px, 10vw, 54px);
+      font-size: clamp(24px, 9vw, 54px);
       text-align: center;
-      padding: 12px 4px;
+      padding: clamp(6px, 2vw, 12px) 4px;
       width: 0;
       outline: none;
       transition: border-color .2s;
@@ -313,7 +326,7 @@
 
     .time-sep {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(36px, 10vw, 54px);
+      font-size: clamp(24px, 9vw, 54px);
       color: var(--muted);
     }
 
@@ -364,12 +377,12 @@
     .round-input {
       background: #1a1a1a;
       border: 1px solid var(--border);
-      border-radius: 12px;
+      border-radius: clamp(8px, 2.5vw, 12px);
       color: #fff;
       font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(28px, 8vw, 44px);
+      font-size: clamp(20px, 7vw, 44px);
       text-align: center;
-      padding: 10px 6px;
+      padding: clamp(6px, 2vw, 10px) 6px;
       outline: none;
       width: 100%;
       transition: border-color .2s;
@@ -392,7 +405,7 @@
 
     .pair-sep {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(24px, 7vw, 40px);
+      font-size: clamp(18px, 6vw, 40px);
       color: var(--muted);
     }
 
@@ -415,13 +428,13 @@
     .btn {
       flex: 1;
       border: none;
-      border-radius: 14px;
+      border-radius: clamp(8px, 3vw, 14px);
       font-family: 'Inter', sans-serif;
-      font-size: clamp(16px, 4vw, 20px);
+      font-size: clamp(12px, 3.5vw, 20px);
       font-weight: 700;
       letter-spacing: .06em;
       text-transform: uppercase;
-      padding: clamp(16px, 4.5vw, 22px) 8px;
+      padding: clamp(10px, 3.5vw, 22px) 8px;
       cursor: pointer;
       transition: opacity .15s, transform .1s, box-shadow .2s;
     }
@@ -505,13 +518,13 @@
     }
 
     body.focus-mode .display {
-      font-size: clamp(140px, 38vw, 260px);
-      padding: 40px 20px;
+      font-size: clamp(80px, 32vw, 260px);
+      padding: clamp(20px, 4vw, 40px) 20px;
     }
 
     body.focus-mode .phase-label {
-      font-size: clamp(16px, 4vw, 24px);
-      bottom: 16px;
+      font-size: clamp(13px, 3.5vw, 24px);
+      bottom: clamp(10px, 2vw, 16px);
     }
 
     body.focus-mode .round-badge.show {
@@ -522,8 +535,71 @@
       justify-content: center;
     }
 
-    body.focus-mode .round-num { font-size: clamp(36px, 10vw, 60px); }
-    body.focus-mode .round-of  { font-size: clamp(14px, 4vw, 20px); }
+    body.focus-mode .round-num { font-size: clamp(28px, 8vw, 60px); }
+    body.focus-mode .round-of  { font-size: clamp(12px, 3.5vw, 20px); }
+
+    /* ── 가로 화면 (landscape) ── */
+    @media (max-height: 500px) {
+      body { padding: 4px 0; }
+      .card { gap: 6px; }
+      body.focus-mode .display { font-size: clamp(60px, 18vh, 180px); }
+    }
+
+    /* ── 아주 작은 화면 (320px 이하) ── */
+    @media (max-width: 320px) {
+      .display { font-size: clamp(48px, 19vw, 100px); }
+      .tabs { gap: 4px; padding: 3px; }
+      .tab-btn { padding: 5px 2px; font-size: 9px; }
+      .btn-row { gap: 6px; }
+      .round-row { gap: 6px; }
+    }
+
+    .header-controls {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .zoom-controls {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      background: #0d0d0d;
+      border: 1px solid #333;
+      border-radius: 8px;
+      padding: 2px 4px;
+    }
+
+    .btn-zoom {
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 700;
+      width: 22px;
+      height: 22px;
+      border-radius: 5px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .15s, color .15s;
+      line-height: 1;
+      padding: 0;
+    }
+
+    .btn-zoom:hover { background: #222; color: #fff; }
+    .btn-zoom:disabled { opacity: .3; cursor: not-allowed; }
+
+    .zoom-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      min-width: 30px;
+      text-align: center;
+      letter-spacing: .03em;
+    }
 
     .btn-focus {
       background: transparent;
@@ -533,7 +609,6 @@
       font-size: 16px;
       padding: 4px 10px;
       cursor: pointer;
-      margin-left: auto;
       transition: border-color .2s, color .2s;
       line-height: 1;
     }
@@ -572,7 +647,14 @@
     <div class="header focus-hide">
       <div class="dot" id="statusDot"></div>
       <span class="title" id="statusText">CrossFit Timer</span>
-      <button class="btn-focus" id="btnFocus" title="간소화 모드">⛶</button>
+      <div class="header-controls">
+        <div class="zoom-controls">
+          <button class="btn-zoom" id="btnZoomOut" title="축소">−</button>
+          <span class="zoom-label" id="zoomLabel">100%</span>
+          <button class="btn-zoom" id="btnZoomIn" title="확대">+</button>
+        </div>
+        <button class="btn-focus" id="btnFocus" title="간소화 모드">⛶</button>
+      </div>
     </div>
 
     <!-- Tabs -->
@@ -606,9 +688,9 @@
     <!-- ══════════════════════════════════════ -->
     <div id="panelTimer" class="focus-hide">
       <div class="input-row">
-        <input class="time-input" id="tMin" type="number" min="0" max="99" value="3" />
+        <input class="time-input" id="tMin" type="number" min="0" max="99" value="3" size="1" />
         <span class="time-sep">:</span>
-        <input class="time-input" id="tSec" type="number" min="0" max="59" value="0" />
+        <input class="time-input" id="tSec" type="number" min="0" max="59" value="0" size="1" />
       </div>
       <div class="label-row">
         <span>분</span><span></span><span>초</span>
@@ -623,16 +705,16 @@
       <!-- Rounds -->
       <div>
         <div class="section-label">라운드 수</div>
-        <input class="round-input" id="rRounds" type="number" min="1" max="99" value="5" />
+        <input class="round-input" id="rRounds" type="number" min="1" max="99" value="5" size="1" />
       </div>
 
       <!-- Work time -->
       <div>
         <div class="section-label">🏋️ 운동 시간</div>
         <div class="time-pair">
-          <input class="round-input" id="rWorkMin" type="number" min="0" max="99" value="0" />
+          <input class="round-input" id="rWorkMin" type="number" min="0" max="99" value="0" size="1" />
           <span class="pair-sep">:</span>
-          <input class="round-input" id="rWorkSec" type="number" min="0" max="59" value="0" />
+          <input class="round-input" id="rWorkSec" type="number" min="0" max="59" value="0" size="1" />
         </div>
         <div class="label-row" style="margin-top:4px">
           <span>분</span><span></span><span>초</span>
@@ -643,9 +725,9 @@
       <div>
         <div class="section-label">😮‍💨 쉬는 시간</div>
         <div class="time-pair">
-          <input class="round-input" id="rRestMin" type="number" min="0" max="99" value="0" />
+          <input class="round-input" id="rRestMin" type="number" min="0" max="99" value="0" size="1" />
           <span class="pair-sep">:</span>
-          <input class="round-input" id="rRestSec" type="number" min="0" max="59" value="0" />
+          <input class="round-input" id="rRestSec" type="number" min="0" max="59" value="0" size="1" />
         </div>
         <div class="label-row" style="margin-top:4px">
           <span>분</span><span></span><span>초</span>
@@ -748,7 +830,63 @@
       infoMsg.classList.toggle('show', !!msg);
     }
 
+    /* ─────────────────────────────────────────
+       Audio
+    ───────────────────────────────────────── */
+    const countAudio = new Audio('count.mp3');
+
+    function playCount() {
+      countAudio.pause();
+      countAudio.currentTime = 0;
+      countAudio.play();
+    }
+
+    /* ─────────────────────────────────────────
+       준비 카운트다운 (10초)
+    ───────────────────────────────────────── */
+    let countdownInterval = null;
+
+    function startCountdown(onDone) {
+      let count = 10;
+      running = true;
+      btnStart.disabled = true;
+      btnStop.disabled = false;
+      showInfo('');
+      phaseLabel.textContent = '준비';
+      setDisplay(count, 'ready');
+      setProgress(100, '');
+      statusText.textContent = '준비 중';
+      showDot('#888', false);
+
+      countdownInterval = setInterval(() => {
+        count--;
+        if (count <= 0) {
+          clearInterval(countdownInterval);
+          countdownInterval = null;
+          phaseLabel.textContent = '';
+          onDone();
+        } else {
+          if (count === 5) {
+            countAudio.currentTime = 0;
+            countAudio.play();
+          }
+          setDisplay(count, 'ready');
+          setProgress((count / 10) * 100, '');
+        }
+      }, 1000);
+    }
+
+    function cancelCountdown() {
+      if (countdownInterval) {
+        clearInterval(countdownInterval);
+        countdownInterval = null;
+      }
+      countAudio.pause();
+      countAudio.currentTime = 0;
+    }
+
     function resetUI() {
+      cancelCountdown();
       clearInterval(interval);
       interval = null;
       running = false;
@@ -797,18 +935,13 @@
         return;
       }
       tRemaining--;
+      if (tRemaining === 5) playCount();
       const state = tRemaining <= 3 ? 'danger' : 'normal';
       setDisplay(fmt(tRemaining), state);
       setProgress((tRemaining / tTotal) * 100, tRemaining <= 3 ? 'danger' : '');
     }
 
-    function startTimer() {
-      if (tRemaining === 0) {
-        const secs = getInt(tMin) * 60 + Math.min(59, getInt(tSec));
-        if (secs <= 0) return;
-        tTotal = secs;
-        tRemaining = secs;
-      }
+    function runTimer() {
       running = true;
       showInfo('');
       const state = tRemaining <= 3 ? 'danger' : 'normal';
@@ -819,6 +952,16 @@
       btnStart.disabled = true;
       btnStop.disabled = false;
       interval = setInterval(timerTick, 1000);
+    }
+
+    function startTimer() {
+      if (tRemaining === 0) {
+        const secs = getInt(tMin) * 60 + Math.min(59, getInt(tSec));
+        if (secs <= 0) return;
+        tTotal = secs;
+        tRemaining = secs;
+      }
+      startCountdown(runTimer);
     }
 
     function stopTimer() {
@@ -902,6 +1045,7 @@
           }
           return;
         }
+        if (rWorkTotal - rElapsed === 5) playCount();
         setDisplay(fmt(rElapsed), 'normal');
         setProgress((rElapsed / rWorkTotal) * 100, '');
       } else {
@@ -926,6 +1070,7 @@
           startWorkPhase();
           return;
         }
+        if (rRemaining === 5) playCount();
         const state = rRemaining <= 3 ? 'rest-danger' : 'rest';
         setDisplay(fmt(rRemaining), state);
         setProgress((rRemaining / rRestTotal) * 100, rRemaining <= 3 ? 'danger' : 'rest');
@@ -943,12 +1088,14 @@
       rRestTotal = restSec;
       rCurrent = 1;
 
-      running = true;
-      showInfo('');
-      startWorkPhase();
-      btnStart.disabled = true;
-      btnStop.disabled = false;
-      interval = setInterval(roundTick, 1000);
+      startCountdown(() => {
+        running = true;
+        showInfo('');
+        startWorkPhase();
+        btnStart.disabled = true;
+        btnStop.disabled = false;
+        interval = setInterval(roundTick, 1000);
+      });
     }
 
     function resumeRound() {
@@ -1050,6 +1197,29 @@
     btnExitFocus.addEventListener('click', () => {
       document.body.classList.remove('focus-mode');
     });
+
+    /* ─────────────────────────────────────────
+       Zoom
+    ───────────────────────────────────────── */
+    const ZOOM_STEPS = [25, 33, 50, 67, 75, 90, 100];
+    let zoomIdx = ZOOM_STEPS.indexOf(100);
+    const card = document.querySelector('.card');
+    const zoomLabel = document.getElementById('zoomLabel');
+    const btnZoomIn = document.getElementById('btnZoomIn');
+    const btnZoomOut = document.getElementById('btnZoomOut');
+
+    function applyZoom() {
+      const z = ZOOM_STEPS[zoomIdx] / 100;
+      card.style.zoom = z;
+      zoomLabel.textContent = ZOOM_STEPS[zoomIdx] + '%';
+      btnZoomIn.disabled = zoomIdx === ZOOM_STEPS.length - 1;
+      btnZoomOut.disabled = zoomIdx === 0;
+    }
+
+    btnZoomIn.addEventListener('click', () => { if (zoomIdx < ZOOM_STEPS.length - 1) { zoomIdx++; applyZoom(); } });
+    btnZoomOut.addEventListener('click', () => { if (zoomIdx > 0) { zoomIdx--; applyZoom(); } });
+
+    applyZoom();
 
     // Init
     setDisplay('00:00', 'idle');
